@@ -1,19 +1,17 @@
-import {application} from "../application";
-import {Container} from "pixi.js";
+import {application} from "../application"
+import {Container} from "pixi.js"
 
 export abstract class Scene {
-    protected get stage(): PIXI.Container { return application.app.stage }
-    protected stageElements: Container[] = []
-
     destroy(): void {
         for (const stageElement of this.stageElements) this.stage.removeChild(stageElement)
         this.stageElements = []
     }
-
     initialize(): void {}
     update(delta: number): void {}
+    resize() {}
 
-
+    protected get stage(): PIXI.Container { return application.app.stage }
+    protected stageElements: Container[] = []
     protected addStageElement(element: Container) {
         this.stageElements.push(element)
         this.stage.addChild(element)

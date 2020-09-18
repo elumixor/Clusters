@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js"
-import {Scene} from "./scenes";
-import {Container} from "pixi.js";
+import {Scene} from "./scenes"
+import {Container} from "pixi.js"
 
 class Application {
     private _app: PIXI.Application
@@ -28,18 +28,18 @@ class Application {
 
     initialize() {
         this._app = new PIXI.Application({
-            width: window.innerWidth,
-            height: window.innerHeight,
-            antialias: true,
-            resolution: 1,
-            autoDensity: true,
+            width: window.innerWidth, height: window.innerHeight, antialias: true, resolution: 1, autoDensity: true,
         })
 
-        window.addEventListener('resize', () => {
-            this._app.renderer.resize(window.innerWidth, window.innerHeight)
-        })
+        window.addEventListener('resize', () => this.onResize())
+        window.addEventListener('load', () => this.onResize())
 
         document.body.appendChild(this.app.view)
+    }
+
+    private onResize() {
+        this.app.renderer.resize(window.innerWidth, window.innerHeight)
+        this.scene?.resize()
     }
 }
 
