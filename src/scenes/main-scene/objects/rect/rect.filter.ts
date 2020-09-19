@@ -18,12 +18,12 @@ export class RectFilter extends PIXI.Filter {
     `
 
     private static readonly fragmentShader = `
-        uniform vec2 vTextureCoord;
+        varying vec2 vTextureCoord;
         uniform sampler2D uSampler;
         uniform float a;
         
         void main(void) {
-            vec4 color = texture2D(uSampler, vTextureCoord) * a;
+            vec4 color = texture2D(uSampler, vTextureCoord) * a;            
             gl_FragColor = color;
         }
     `

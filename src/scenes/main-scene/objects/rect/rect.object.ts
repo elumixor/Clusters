@@ -10,7 +10,6 @@ export class RectObject extends Graphics {
 
     constructor(x: number, y: number, width: number, height: number, public readonly color: number) {
         super()
-
         this.beginFill(color)
         this.drawRect(x, y, width, height)
         this.endFill()

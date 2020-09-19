@@ -34,6 +34,9 @@ class Application {
             width: window.innerWidth, height: window.innerHeight, antialias: true, resolution: 1, autoDensity: true,
         })
 
+        this.app.renderer.view.style.position = "absolute";
+        this.app.renderer.view.style.display = "block";
+
         window.addEventListener('resize', () => this.onResize())
         window.addEventListener('load', () => this.onResize())
 

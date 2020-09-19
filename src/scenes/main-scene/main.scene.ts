@@ -53,7 +53,7 @@ export class MainScene extends Scene {
         const rects: RectObject[] = []
 
         const rectSize = 25
-        const padding = 1
+        const padding = 3
 
         this.field.sortableChildren = true
 
