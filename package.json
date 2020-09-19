@@ -22,6 +22,8 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "pixi.js": "^5.3.3"
+    "@types/webfontloader": "^1.6.32",
+    "pixi.js": "^5.3.3",
+    "webfontloader": "^1.6.28"
   }
 }

@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js"
 import {Scene} from "./scenes"
 import {Container} from "pixi.js"
+import {loadFonts} from "./shared"
 
 class Application {
     private _app: PIXI.Application
@@ -26,7 +27,9 @@ class Application {
 
     private currentUpdate: (delta: number) => void
 
-    initialize() {
+    async initialize() {
+        await loadFonts(['Indie Flower'])
+
         this._app = new PIXI.Application({
             width: window.innerWidth, height: window.innerHeight, antialias: true, resolution: 1, autoDensity: true,
         })
