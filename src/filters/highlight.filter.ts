@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js"
 
-export class RectFilter extends PIXI.Filter {
+export class HighlightFilter extends PIXI.Filter {
     private static readonly vertexShader = `
         attribute vec2 aVertexPosition;    
         attribute vec2 aTextureCoord;    
@@ -20,24 +20,17 @@ export class RectFilter extends PIXI.Filter {
     private static readonly fragmentShader = `
         varying vec2 vTextureCoord;
         uniform sampler2D uSampler;
-        uniform float a;
         
         void main(void) {
-            vec4 color = texture2D(uSampler, vTextureCoord) * a;            
+            vec4 color = texture2D(uSampler, vTextureCoord) ;            
             gl_FragColor = color;
         }
     `
 
-    // uniforms: {z: number}
-
     constructor() {
-        // const uniforms = {z: 1}
-        super(RectFilter.vertexShader, RectFilter.fragmentShader, {z: 1, a: 1})
+        super(HighlightFilter.vertexShader, HighlightFilter.fragmentShader, {z: 1})
     }
 
     get z(): number { return this.uniforms.z }
     set z(value: number) { this.uniforms.z = value }
-
-    get a(): number { return this.uniforms.a }
-    set a(value: number) { this.uniforms.a = value }
 }

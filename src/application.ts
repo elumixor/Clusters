@@ -1,52 +1,34 @@
 import * as PIXI from "pixi.js"
-import {Scene} from "./scenes"
-import {Container} from "pixi.js"
-import {loadFonts} from "./shared"
+import {Container} from "pixi.js";
 
-class Application {
-    private _app: PIXI.Application
-    get app() { return this._app }
+function createApplication(): PIXI.Application {
+    const app = new PIXI.Application({
+        width: window.innerWidth,
+        height: window.innerHeight,
+        antialias: true,
+        resolution: 1,
+        autoDensity: true,
+    })
 
-    private _scene: Scene
-    set scene(value: Scene) {
-        if (this._scene) this._scene.destroy()
-        this._scene = value
-        this._scene.initialize()
+    app.renderer.view.style.position = "absolute";
+    app.renderer.view.style.display = "block";
 
-        if (this.currentUpdate) this.app.ticker.remove(this.currentUpdate)
-        this.app.ticker.add(this.currentUpdate = this.scene.update)
-    }
-    get scene(): Scene { return this._scene }
+    const onResize = () => app.renderer.resize(window.innerWidth, window.innerHeight)
 
-    get center() {return {x: this.app.screen.width / 2, y: this.app.screen.height / 2}}
+    window.addEventListener('resize', () => onResize())
+    window.addEventListener('load', () => onResize())
 
-    centerElement(element: Container) {
-        element.x = this.center.x - element.width / 2
-        element.y = this.center.y - element.height / 2
-    }
+    document.body.appendChild(app.view)
 
-    private currentUpdate: (delta: number) => void
-
-    async initialize() {
-        await loadFonts(['Indie Flower'])
-
-        this._app = new PIXI.Application({
-            width: window.innerWidth, height: window.innerHeight, antialias: true, resolution: 1, autoDensity: true,
-        })
-
-        this.app.renderer.view.style.position = "absolute";
-        this.app.renderer.view.style.display = "block";
-
-        window.addEventListener('resize', () => this.onResize())
-        window.addEventListener('load', () => this.onResize())
-
-        document.body.appendChild(this.app.view)
-    }
-
-    private onResize() {
-        this.app.renderer.resize(window.innerWidth, window.innerHeight)
-        this.scene?.resize()
-    }
+    return app
 }
 
-export const application = new Application()
+export const application = createApplication()
+export const stage = application.stage
+export const appScreen = application.screen
+
+export function getCenterPoint() { return {x: appScreen.width / 2, y: appScreen.height / 2} }
+export function centerElement(element: Container) {
+    const c = getCenterPoint()
+    element.position.set(c.x - element.width / 2, c.y - element.height / 2)
+}

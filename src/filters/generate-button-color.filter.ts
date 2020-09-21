@@ -1,9 +1,7 @@
 import {Filter} from "pixi.js"
-import {tween} from "../../../../shared"
-import * as PIXI from 'pixi.js'
-import {Easings} from "../../../../shared/tweening"
+import {tween, Easings} from "../common/tweening"
 
-export class ColorFilter extends Filter {
+export class GenerateButtonColorFilter extends Filter {
     constructor() {
         super(`
         attribute vec2 aVertexPosition;    

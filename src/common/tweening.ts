@@ -27,8 +27,11 @@ export function tween(setter: (progress: number) => void, duration: number, easi
 
         setter(easing(t))
 
-        if (elapsed >= duration) application.app.ticker.remove(f)
+        if (elapsed >= duration) {
+            application.ticker.remove(f)
+            setter(easing(1))
+        }
     }
 
-    application.app.ticker.add(f)
+    application.ticker.add(f)
 }
